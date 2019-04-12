@@ -83,6 +83,8 @@ class FilterBlockReader {
   virtual ~FilterBlockReader() {}
 
   virtual bool IsBlockBased() = 0;  // If is blockbased filter
+  virtual bool IsPartitioned() { return false; } // If is partitioned filter
+
   /**
    * If no_io is set, then it returns true if it cannot answer the query without
    * reading data from disk. This is used in PartitionedFilterBlockReader to

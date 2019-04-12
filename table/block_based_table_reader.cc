@@ -1593,6 +1593,9 @@ BlockBasedTable::CachableEntry<FilterBlockReader> BlockBasedTable::GetFilter(
     }
   }
 
+  if (filter->IsPartitioned())
+	  reinterpret_cast<PartitionedFilterBlockReader*>(filter)->SetTable(this);
+
   return { filter, cache_handle };
 }
 

@@ -81,6 +81,7 @@ class PartitionedFilterBlockReader : public FilterBlockReader,
   virtual ~PartitionedFilterBlockReader();
 
   virtual bool IsBlockBased() override { return false; }
+  virtual bool IsPartitioned() override { return true; }
   virtual bool KeyMayMatch(
       const Slice& key, const SliceTransform* prefix_extractor,
       uint64_t block_offset = kNotValid, const bool no_io = false,
@@ -90,6 +91,7 @@ class PartitionedFilterBlockReader : public FilterBlockReader,
       uint64_t block_offset = kNotValid, const bool no_io = false,
       const Slice* const const_ikey_ptr = nullptr) override;
   virtual size_t ApproximateMemoryUsage() const override;
+  void SetTable(const BlockBasedTable* table) { table_ = table; };
 
  private:
   BlockHandle GetFilterPartitionHandle(const Slice& entry);
